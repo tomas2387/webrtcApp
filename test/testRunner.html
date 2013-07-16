@@ -1,0 +1,21 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="lib/node_modules/mocha/mocha.css" />
+</head>
+<body>
+<div id="mocha"></div>
+<script src="lib/node_modules/mocha/mocha.js"></script>
+<script src="lib/node_modules/chai/chai.js"></script>
+<script>
+    mocha.ui('tdd');
+    mocha.reporter('nyan');
+    assert = chai.assert;
+</script>
+<script data-main="test.config.js" src="../scripts/require.js"></script>
+<script>
+    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+    else { mocha.run(); }
+</script>
+</body>
+</html>
