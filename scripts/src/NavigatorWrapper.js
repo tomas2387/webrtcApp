@@ -1,13 +1,32 @@
+define(function() {
+    var NavigatorWrapper = function() {
+        this.methodGetUserMedia = null;
+    };
 
-var NavigatorWrapper = function() {
+    NavigatorWrapper.prototype.getUserMedia = function() {
+        if(typeof this.methodGetUserMedia == "function") {
+            return this.methodGetUserMedia();
+        }
 
-};
+        if(navigator.getUserMedia) {
+            this.methodGetUserMedia = navigator.getUserMedia;
+        }
+        else if(navigator.webkitGetUserMedia) {
+            this.methodGetUserMedia = navigator.webkitGetUserMedia;
+        }
+        else if(navigator.mozGetUserMedia) {
+            this.methodGetUserMedia = navigator.mozGetUserMedia;
+        }
+        else if(navigator.msGetUserMedia) {
+            this.methodGetUserMedia = navigator.msGetUserMedia;
+        }
+        else {
+            throw new Error("GetUserMedia is not compatible!");
+        }
 
-NavigatorWrapper.prototype.getUserMedia = function() {
+        return this.getUserMedia();
+    };
 
-};
+    return NavigatorWrapper;
+});
 
-
-if(typeof exports !== "undefined") {
-    exports.NavigatorWrapper = NavigatorWrapper;
-}

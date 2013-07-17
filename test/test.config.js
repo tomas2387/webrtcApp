@@ -4,7 +4,7 @@ require.config({
 
 require([
     // FILE(S) BEING TESTED
-    'src/test.backbone-gcl'
+    'src/*'
 ], function() {
     // INITIALIZE THE RUN
     mocha.run();
