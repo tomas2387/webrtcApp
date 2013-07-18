@@ -6,10 +6,13 @@
 <body>
 <div id="mocha"></div>
 <script src="lib/node_modules/mocha/mocha.js"></script>
+<script src="lib/node_modules/sinon/lib/sinon.js"></script>
 <script src="lib/node_modules/chai/chai.js"></script>
 <script>
     mocha.ui('tdd');
     mocha.reporter('nyan');
+    mock = sinon.mock;
+    //noinspection JSUnresolvedVariable
     assert = chai.assert;
 </script>
 <script data-main="test.config.js" src="../scripts/require.js"></script>

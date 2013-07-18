@@ -1,5 +1,11 @@
 module.exports = function(grunt) {
+    "use strict";
+
     grunt.initConfig({
+        default: {
+            tasks: 'shell:mocha-phantomjs'
+        },
+
         shell: {
             'mocha-phantomjs': {
                 command: 'mocha-phantomjs http://localhost/webrtcApp/test/testRunner.html',

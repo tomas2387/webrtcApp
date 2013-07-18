@@ -1,10 +1,11 @@
+"use strict";
 require.config({
-    // ...paths and stuff
+    //baseUrl: "/src"
 });
 
 require([
-    // FILE(S) BEING TESTED
-    'src/*'
+    'src/NavigatorWrapperTest',
+    'src/UserMediaTest.js'
 ], function() {
     // INITIALIZE THE RUN
     mocha.run();
