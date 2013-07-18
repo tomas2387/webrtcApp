@@ -1,5 +1,5 @@
-define(['src/NavigatorWrapper'], function(NavigatorWrapper) {
-
+window.define(['src/NavigatorWrapper'], function(NavigatorWrapper) {
+    "use strict";
     var UserMedia = function(navigator) {
         if(typeof navigator === "undefined") {
             this.navigator = new NavigatorWrapper();
@@ -23,9 +23,7 @@ define(['src/NavigatorWrapper'], function(NavigatorWrapper) {
             // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
             // See crbug.com/110938.
             video.onloadedmetadata = function(e) {
-                console.log('Ready to go. Do some stuff.');
-
-
+                console.log('Ready to go. Do some stuff. ', e);
             };
         }, function(e) {
             console.log('Reeeejected!', e);

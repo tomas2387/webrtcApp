@@ -1,10 +1,11 @@
-define(function() {
+window.define(function() {
+    "use strict";
     var NavigatorWrapper = function() {
         this.methodGetUserMedia = null;
     };
 
     NavigatorWrapper.prototype.getUserMedia = function() {
-        if(typeof this.methodGetUserMedia == "function") {
+        if(typeof this.methodGetUserMedia === "function") {
             return this.methodGetUserMedia();
         }
 
