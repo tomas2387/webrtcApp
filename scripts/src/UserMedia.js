@@ -10,8 +10,13 @@ window.define(['src/NavigatorWrapper'], function(NavigatorWrapper) {
     };
 
     UserMedia.prototype.hasGetUserMedia = function() {
-        // Note: Opera is un prefixed.
-        return
+        try {
+            this.navigator.getUserMedia();
+            return true;
+        }
+        catch(e) {
+            return false;
+        }
     };
 
     UserMedia.prototype.startCamera = function() {
