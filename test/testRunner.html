@@ -5,20 +5,12 @@
 </head>
 <body>
 <div id="mocha"></div>
+<script src="lib/node_modules/sinon/pkg/sinon.js"></script>
 <script src="lib/node_modules/mocha/mocha.js"></script>
-<script src="lib/node_modules/sinon/lib/sinon.js"></script>
-<script src="lib/node_modules/chai/chai.js"></script>
 <script>
     mocha.ui('tdd');
-    mocha.reporter('nyan');
-    mock = sinon.mock;
-    //noinspection JSUnresolvedVariable
-    assert = chai.assert;
+    mocha.reporter('Nyan');
 </script>
-<script data-main="test.config.js" src="../scripts/require.js"></script>
-<script>
-    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
-    else { mocha.run(); }
-</script>
+<script src="../scripts/require.js" data-main="test.config.js" ></script>
 </body>
 </html>

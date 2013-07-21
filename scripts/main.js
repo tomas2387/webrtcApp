@@ -4,7 +4,7 @@ require(["src/UserMedia"], function(UserMedia) {
 
     if (userMedia.hasGetUserMedia()) {
         console.log('Good to go!');
-        userMedia.startCamera();
+        userMedia.queryCamera();
     } else {
         window.alert('getUserMedia() is not supported in your browser');
     }

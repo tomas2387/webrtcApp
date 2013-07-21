@@ -2,26 +2,33 @@ window.define(function() {
     "use strict";
     var NavigatorWrapper = function() {
         this.methodGetUserMedia = null;
+        this.possibleMethods = [
+            navigator.getUserMedia,
+            navigator.webkitGetUserMedia,
+            navigator.mozGetUserMedia,
+            navigator.msGetUserMedia
+        ];
     };
 
-    NavigatorWrapper.prototype.getUserMedia = function() {
-        if(typeof this.methodGetUserMedia === "function") {
-            return this.methodGetUserMedia();
+    NavigatorWrapper.prototype.getCorrectGetUserMediaMethod = function () {
+        for(var i = 0, len = this.possibleMethods.length; i < len; ++i) {
+            var method = this.possibleMethods[i];
+            if(method) {
+                return method;
+            }
         }
 
-        if(navigator.getUserMedia) {
-            this.methodGetUserMedia = navigator.getUserMedia;
+        return null;
+    };
+
+    NavigatorWrapper.prototype.getUserMedia = function(options, callback, errorCallback) {
+        if(typeof this.methodGetUserMedia === "function") {
+            return this.methodGetUserMedia(options, callback, errorCallback);
         }
-        else if(navigator.webkitGetUserMedia) {
-            this.methodGetUserMedia = navigator.webkitGetUserMedia;
-        }
-        else if(navigator.mozGetUserMedia) {
-            this.methodGetUserMedia = navigator.mozGetUserMedia;
-        }
-        else if(navigator.msGetUserMedia) {
-            this.methodGetUserMedia = navigator.msGetUserMedia;
-        }
-        else {
+
+        this.methodGetUserMedia = this.getCorrectGetUserMediaMethod();
+
+        if(this.methodGetUserMedia === null) {
             throw new Error("GetUserMedia is not compatible!");
         }
 

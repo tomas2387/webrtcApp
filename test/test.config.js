@@ -1,12 +1,13 @@
-"use strict";
 require.config({
-    //baseUrl: "/src"
+    baseUrl: "../scripts/src",
+    paths: {
+        chai: '../../test/lib/node_modules/chai/chai'
+    }
 });
 
 require([
-    'src/NavigatorWrapperTest',
-    'src/UserMediaTest.js'
+    '../../test/src/UserMediaTest'
 ], function() {
-    // INITIALIZE THE RUN
-    mocha.run();
+    if (typeof mochaPhantomJS !== "undefined") { mochaPhantomJS.run(); }
+    else { mocha.run(); }
 });
