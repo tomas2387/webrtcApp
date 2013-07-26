@@ -10,18 +10,13 @@ window.define(['NavigatorWrapper'], function(NavigatorWrapper) {
     };
 
     UserMedia.prototype.hasGetUserMedia = function() {
-        try {
-            this.navigator.getUserMedia();
-            return true;
-        }
-        catch(e) {
-            return false;
-        }
+        return this.navigator.hasGetUserMedia();
     };
 
     UserMedia.prototype.queryCamera = function() {
         // Not showing vendor prefixes.
-        this.navigator.getUserMedia({video: true, audio: true}, this.userAccepted, this.userDenied);
+        var options = {video: true, audio: true};
+        this.navigator.getUserMedia(options, this.userAccepted, this.userDenied);
     };
 
     UserMedia.prototype.userAccepted = function(localMediaStream) {

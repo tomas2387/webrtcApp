@@ -1,4 +1,4 @@
-require(["src/UserMedia"], function(UserMedia) {
+require(["UserMedia"], function(UserMedia) {
     "use strict";
     var userMedia = new UserMedia();
 
@@ -6,6 +6,6 @@ require(["src/UserMedia"], function(UserMedia) {
         console.log('Good to go!');
         userMedia.queryCamera();
     } else {
-        window.alert('getUserMedia() is not supported in your browser');
+        window.alert('getUserMedia() is not compatible in your browser');
     }
 });

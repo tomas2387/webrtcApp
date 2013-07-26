@@ -29,9 +29,9 @@ define(['chai', 'UserMedia','NavigatorWrapper'],
                 stubNavigator.restore();
             });
 
-            test('test_hasGetUserMedia_whenNavigatorReturnsNothing_returnTrue', function() {
-                var stubNavigator = sinon.stub(instanceNavigator, 'getUserMedia');
-                stubNavigator.returns();
+            test('test_hasGetUserMedia_whenNavigatorReturnsTrue_returnTrue', function() {
+                var stubNavigator = sinon.stub(instanceNavigator, 'hasGetUserMedia');
+                stubNavigator.returns(true);
 
                 var actual = sut.hasGetUserMedia();
                 chai.assert.equal(true, actual);
@@ -39,6 +39,7 @@ define(['chai', 'UserMedia','NavigatorWrapper'],
                 stubNavigator.restore();
 
             });
+
         });
 
 });
