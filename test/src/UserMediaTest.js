@@ -1,20 +1,21 @@
-define(['chai', 'UserMedia','NavigatorWrapper'],
-    function(chai, UserMedia, NavigatorWrapper) {
+define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, UserMedia, NavigatorWrapper, VideoWrapper) {
+
         suite('NavigatorWrapper.hasGetUserMedia', function() {
-            var sut, mockNavigator, instanceNavigator;
+            var sut,  instanceNavigator, instanceVideo;
             setup(function() {
                 instanceNavigator = new NavigatorWrapper();
-                mockNavigator = sinon.mock(instanceNavigator);
-                sut = new UserMedia(instanceNavigator);
+                instanceVideo = new VideoWrapper();
+                sut = new UserMedia(instanceNavigator, instanceVideo);
             });
 
             teardown(function() {
-                mockNavigator.restore();
                 sut = null;
                 instanceNavigator = null;
+                instanceVideo = null;
             });
 
             test('test_hasGetUserMedia_whenCalled_CallsNavigatorWrapper', function() {
+                var mockNavigator = sinon.mock(instanceNavigator);
                 mockNavigator.expects('getUserMedia').once().withArgs();
                 sut.hasGetUserMedia();
             });
@@ -37,9 +38,57 @@ define(['chai', 'UserMedia','NavigatorWrapper'],
                 chai.assert.equal(true, actual);
 
                 stubNavigator.restore();
-
             });
 
+
+        });
+
+        suite('NavigatorWrapper.stopUserMedia', function() {
+            "use strict";
+            var sut,  instanceNavigator, instanceVideo;
+            setup(function() {
+                instanceNavigator = new NavigatorWrapper();
+                instanceVideo = new VideoWrapper();
+                sut = new UserMedia(instanceNavigator, instanceVideo);
+            });
+
+            teardown(function() {
+                sut = null;
+                instanceNavigator = null;
+                instanceVideo = null;
+            });
+            test('test_stopUserMedia_whenCalled_callsStopPlaying', function() {
+                var mockVideo = sinon.mock(instanceVideo);
+                mockVideo.expects('stopPlaying').once();
+
+                sut.stopMedia();
+
+                mockVideo.restore();
+            });
+        });
+
+        suite('NavigatorWrapper.queryCamera', function() {
+            "use strict";
+            var sut,  instanceNavigator, instanceVideo;
+            setup(function() {
+                instanceNavigator = new NavigatorWrapper();
+                instanceVideo = new VideoWrapper();
+                sut = new UserMedia(instanceNavigator, instanceVideo);
+            });
+
+            teardown(function() {
+                sut = null;
+                instanceNavigator = null;
+                instanceVideo = null;
+            });
+            test('test_queryCamera_whenCalled_callsGetUserMedia', function() {
+                var mockNavigator = sinon.mock(instanceNavigator);
+                mockNavigator.expects('getUserMedia').once();
+
+                sut.queryCamera();
+
+                mockNavigator.restore();
+            });
         });
 
 });

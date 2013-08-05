@@ -1,12 +1,9 @@
-window.define(['NavigatorWrapper'], function(NavigatorWrapper) {
+window.define(['NavigatorWrapper', 'VideoWrapper'], function(NavigatorWrapper, VideoWrapper) {
     "use strict";
-    var UserMedia = function(navigator) {
-        if(typeof navigator === "undefined") {
-            this.navigator = new NavigatorWrapper();
-        }
-        else {
-            this.navigator = navigator;
-        }
+
+    var UserMedia = function(navigator, video) {
+        this.navigator = navigator || new NavigatorWrapper();
+        this.video = video || new VideoWrapper(document.getElementById('localVideo'));
     };
 
     UserMedia.prototype.hasGetUserMedia = function() {
@@ -16,24 +13,20 @@ window.define(['NavigatorWrapper'], function(NavigatorWrapper) {
     UserMedia.prototype.queryCamera = function() {
         // Not showing vendor prefixes.
         var options = {video: true, audio: true};
-        this.navigator.getUserMedia(options, this.userAccepted, this.userDenied);
+        this.navigator.getUserMedia(options, this.userAccepted.bind(this), this.userDenied.bind(this));
     };
 
     UserMedia.prototype.userAccepted = function(localMediaStream) {
-        var video = document.querySelector('video');
-        video.src = window.URL.createObjectURL(localMediaStream);
+        this.video.startPlaying(localMediaStream);
+    };
 
-        // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
-        // See crbug.com/110938.
-        video.onloadedmetadata = function(e) {
-            console.log('Ready to go. Do some stuff. ', e);
-        };
+    UserMedia.prototype.stopMedia = function() {
+        this.video.stopPlaying();
     };
 
     UserMedia.prototype.userDenied = function(e) {
         console.log('Reeeejected!', e);
     };
-
 
     return UserMedia;
 });
