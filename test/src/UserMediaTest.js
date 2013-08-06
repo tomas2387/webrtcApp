@@ -1,6 +1,6 @@
 define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, UserMedia, NavigatorWrapper, VideoWrapper) {
 
-        suite('NavigatorWrapper.hasGetUserMedia', function() {
+        suite('UserMedia.hasGetUserMedia', function() {
             var sut,  instanceNavigator, instanceVideo;
             setup(function() {
                 instanceNavigator = new NavigatorWrapper();
@@ -43,7 +43,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, U
 
         });
 
-        suite('NavigatorWrapper.stopUserMedia', function() {
+        suite('UserMedia.stopUserMedia', function() {
             "use strict";
             var sut,  instanceNavigator, instanceVideo;
             setup(function() {
@@ -67,7 +67,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, U
             });
         });
 
-        suite('NavigatorWrapper.queryCamera', function() {
+        suite('UserMedia.queryCamera', function() {
             "use strict";
             var sut,  instanceNavigator, instanceVideo;
             setup(function() {

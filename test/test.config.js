@@ -7,7 +7,8 @@ require.config({
 });
 
 require([
-    '../../test/src/UserMediaTest'
+    '../../test/src/UserMediaTest',
+    '../../test/src/NavigatorWrapperTest',
 ], function() {
     if (typeof mochaPhantomJS !== "undefined") { mochaPhantomJS.run(); }
     else { mocha.run(); }
