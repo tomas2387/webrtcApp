@@ -1,7 +1,7 @@
 window.define(['NavigatorWrapper', 'VideoWrapper'], function(NavigatorWrapper, VideoWrapper) {
     "use strict";
 
-    var UserMedia = function(navigator, video) {
+    var UserMedia = function(video, navigator) {
         this.navigator = navigator || new NavigatorWrapper();
         this.video = video || new VideoWrapper(document.getElementById('localVideo'));
     };

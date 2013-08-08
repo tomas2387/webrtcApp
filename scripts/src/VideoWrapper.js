@@ -12,7 +12,7 @@ window.define(["URLWrapper"], function(URLWrapper) {
 
         // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
         // See crbug.com/110938.
-        this.video.onloadedmetadata = this.onLoadedMetadata;
+        this.videoElement.onloadedmetadata = this.onLoadedMetadata;
     };
 
     VideoWrapper.prototype.stopPlaying = function() {

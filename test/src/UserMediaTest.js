@@ -5,7 +5,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, U
             setup(function() {
                 instanceNavigator = new NavigatorWrapper();
                 instanceVideo = new VideoWrapper();
-                sut = new UserMedia(instanceNavigator, instanceVideo);
+                sut = new UserMedia(instanceVideo, instanceNavigator);
             });
 
             teardown(function() {
@@ -49,7 +49,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, U
             setup(function() {
                 instanceNavigator = new NavigatorWrapper();
                 instanceVideo = new VideoWrapper();
-                sut = new UserMedia(instanceNavigator, instanceVideo);
+                sut = new UserMedia(instanceVideo, instanceNavigator);
             });
 
             teardown(function() {
@@ -73,7 +73,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, U
             setup(function() {
                 instanceNavigator = new NavigatorWrapper();
                 instanceVideo = new VideoWrapper();
-                sut = new UserMedia(instanceNavigator, instanceVideo);
+                sut = new UserMedia(instanceVideo, instanceNavigator);
             });
 
             teardown(function() {
@@ -86,7 +86,6 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, U
                 mockNavigator.expects('getUserMedia').once();
 
                 sut.queryCamera();
-
                 mockNavigator.restore();
             });
         });
