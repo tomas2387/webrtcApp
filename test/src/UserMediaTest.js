@@ -67,7 +67,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, U
             });
         });
 
-        suite('UserMedia.queryCamera', function() {
+        suite('UserMedia.localQueryCamera', function() {
             "use strict";
             var sut,  instanceNavigator, instanceVideo;
             setup(function() {
@@ -85,7 +85,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, U
                 var mockNavigator = sinon.mock(instanceNavigator);
                 mockNavigator.expects('getUserMedia').once();
 
-                sut.queryCamera();
+                sut.localQueryCamera();
                 mockNavigator.restore();
             });
         });

@@ -10,7 +10,7 @@ window.define(['NavigatorWrapper', 'VideoWrapper'], function(NavigatorWrapper, V
         return this.navigator.hasGetUserMedia();
     };
 
-    UserMedia.prototype.queryCamera = function() {
+    UserMedia.prototype.localQueryCamera = function() {
         // Not showing vendor prefixes.
         var options = {video: true, audio: true};
         this.navigator.getUserMedia(options, this.userAccepted.bind(this), this.userDenied.bind(this));

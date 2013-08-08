@@ -4,16 +4,16 @@ require(["UserMedia", "VideoWrapper"], function(UserMedia, VideoWrapper) {
     var startButton = document.getElementById("startButton");
     startButton.onclick = startLocalVideo;
 
-    var videoWrapper = new VideoWrapper(document.getElementById('localVideo'));
-    var userMedia = new UserMedia(videoWrapper);
+    var localVideoWrapper = new VideoWrapper(document.getElementById('localVideo'));
+    var userLocalMedia = new UserMedia(localVideoWrapper);
 
     function startLocalVideo() {
         startButton.innerHTML = "Stop";
         startButton.onclick = stopLocalVideo;
 
-        if (userMedia.hasGetUserMedia()) {
+        if (userLocalMedia.hasGetUserMedia()) {
             console.log('Good to go!');
-            userMedia.queryCamera();
+            userLocalMedia.localQueryCamera();
         } else {
             window.alert('getUserMedia() is not compatible in your browser');
             stopLocalVideo();
@@ -24,6 +24,23 @@ require(["UserMedia", "VideoWrapper"], function(UserMedia, VideoWrapper) {
         startButton.innerHTML = "Start";
         startButton.onclick = startLocalVideo;
 
-        userMedia.stopMedia();
+        userLocalMedia.stopMedia();
+    }
+
+    var remoteVideoWrapper = new VideoWrapper(document.getElementById('remoteVideo'));
+    var userRemoteMedia = new UserMedia(remoteVideoWrapper);
+
+    var sendStreamButton = document.getElementById("callButton");
+    sendStreamButton.onclick = sendStream;
+
+    function sendStream() {
+        //TODO
+    }
+
+    var stopStreamButton = document.getElementById("hangupButton");
+    stopStreamButton.onclick = stopStream;
+
+    function stopStream() {
+        //TODO
     }
 });
