@@ -2,13 +2,14 @@ require(["UserMedia", "VideoWrapper"], function(UserMedia, VideoWrapper) {
     "use strict";
 
     var startButton = document.getElementById("startButton");
-    startButton.onclick = startVideo;
+    startButton.onclick = startLocalVideo;
 
-    var userMedia = new UserMedia();
+    var videoWrapper = new VideoWrapper(document.getElementById('localVideo'));
+    var userMedia = new UserMedia(videoWrapper);
 
-    function startVideo() {
+    function startLocalVideo() {
         startButton.innerHTML = "Stop";
-        startButton.onclick = stopVideo;
+        startButton.onclick = stopLocalVideo;
 
         if (userMedia.hasGetUserMedia()) {
             console.log('Good to go!');
@@ -18,9 +19,9 @@ require(["UserMedia", "VideoWrapper"], function(UserMedia, VideoWrapper) {
         }
     }
 
-    function stopVideo() {
+    function stopLocalVideo() {
         startButton.innerHTML = "Start";
-        startButton.onclick = startVideo;
+        startButton.onclick = startLocalVideo;
 
         userMedia.stopMedia();
     }
