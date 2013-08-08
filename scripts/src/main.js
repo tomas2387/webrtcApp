@@ -16,6 +16,7 @@ require(["UserMedia", "VideoWrapper"], function(UserMedia, VideoWrapper) {
             userMedia.queryCamera();
         } else {
             window.alert('getUserMedia() is not compatible in your browser');
+            stopLocalVideo();
         }
     }
 
