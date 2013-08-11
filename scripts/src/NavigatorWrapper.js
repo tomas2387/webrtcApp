@@ -2,28 +2,26 @@ window.define(function() {
     "use strict";
     var NavigatorWrapper = function(windowNavigator) {
         this.windowNavigator = windowNavigator || window.navigator;
-        this.windowNavigator.GetMedia = null;
-        this.possibleMethods = [
+        this.windowNavigator.getMedia = this.getCorrectGetUserMediaMethod();
+    };
+
+    NavigatorWrapper.prototype.getCorrectGetUserMediaMethod = function () {
+        var possibleMethods = [
             'getUserMedia',
             'webkitGetUserMedia',
             'mozGetUserMedia',
             'msGetUserMedia'
         ];
-    };
-
-    NavigatorWrapper.prototype.getCorrectGetUserMediaMethod = function () {
-        for(var i = 0, len = this.possibleMethods.length; i < len; ++i) {
-            var method = this.windowNavigator[this.possibleMethods[i]];
-            if(method) {
-                return method;
+        for(var i = 0, len = possibleMethods.length; i < len; ++i) {
+            if(this.windowNavigator[possibleMethods[i]]) {
+                return this.windowNavigator[possibleMethods[i]];
             }
         }
         return null;
     };
 
     NavigatorWrapper.prototype.hasGetUserMedia = function () {
-        this.windowNavigator.GetMedia = this.getCorrectGetUserMediaMethod();
-        return this.windowNavigator.GetMedia !== null;
+        return (typeof this.windowNavigator.getMedia === "function");
     };
 
     NavigatorWrapper.prototype.getUserMedia = function(options, callback, errorCallback) {
@@ -31,15 +29,11 @@ window.define(function() {
         callback = callback || function(){};
         errorCallback = errorCallback || function(){};
 
-        if(typeof this.windowNavigator.GetMedia === "function") {
-            return this.windowNavigator.GetMedia(options, callback, errorCallback);
+        if(this.hasGetUserMedia()) {
+            return this.windowNavigator.getMedia(options, callback, errorCallback);
         }
 
-        if(!this.hasGetUserMedia()) {
-            throw new Error('UserMedia is not compatible with your browser!');
-        }
-
-        return this.getUserMedia(options, callback, errorCallback);
+        throw new Error('UserMedia is not compatible with your browser!');
     };
 
     return NavigatorWrapper;

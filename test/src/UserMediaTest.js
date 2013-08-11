@@ -1,4 +1,4 @@
-define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, UserMedia, NavigatorWrapper, VideoWrapper) {
+define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper', 'ConnectionWrapper'], function(chai, UserMedia, NavigatorWrapper, VideoWrapper, ConnectionWrapper) {
 
         suite('UserMedia.hasGetUserMedia', function() {
             var sut,  instanceNavigator, instanceVideo;
@@ -88,6 +88,34 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, U
                 sut.localQueryCamera();
                 mockNavigator.restore();
             });
+        });
+
+        suite('UserMedia.Publish', function() {
+            "use strict";
+            var sut,  instanceNavigator, instanceVideo, instancePeerConnection;
+            setup(function() {
+                instanceNavigator = new NavigatorWrapper();
+                instanceVideo = new VideoWrapper();
+                instancePeerConnection = new ConnectionWrapper();
+                sut = new UserMedia(instanceVideo, instanceNavigator, instancePeerConnection);
+            });
+
+            teardown(function() {
+                sut = null;
+                instanceNavigator = null;
+                instanceVideo = null;
+            });
+            test('test_methodPublishUserMedia_whenCalled_calls', function() {
+                var mockConnection = sinon.mock(instancePeerConnection);
+                var expectation = mockConnection.expects('publishSDP').once();
+
+                sut.publish();
+
+                expectation.verify();
+                mockConnection.restore();
+            });
+
+
         });
 
 });

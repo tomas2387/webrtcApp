@@ -1,9 +1,10 @@
-window.define(['NavigatorWrapper', 'VideoWrapper'], function(NavigatorWrapper, VideoWrapper) {
+window.define(['NavigatorWrapper', 'VideoWrapper', 'ConnectionWrapper'], function(NavigatorWrapper, VideoWrapper, ConnectionWrapper) {
     "use strict";
 
-    var UserMedia = function(video, navigator) {
+    var UserMedia = function(video, navigator, connection) {
         this.navigator = navigator || new NavigatorWrapper();
         this.video = video || new VideoWrapper(document.getElementById('localVideo'));
+        this.connection = connection || new ConnectionWrapper();
     };
 
     UserMedia.prototype.hasGetUserMedia = function() {
@@ -26,6 +27,10 @@ window.define(['NavigatorWrapper', 'VideoWrapper'], function(NavigatorWrapper, V
 
     UserMedia.prototype.userDenied = function(e) {
         console.log('Reeeejected!', e);
+    };
+
+    UserMedia.prototype.publish = function() {
+        this.connection.publishSDP();
     };
 
     return UserMedia;
