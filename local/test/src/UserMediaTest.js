@@ -1,4 +1,4 @@
-define(['.', 'UserMedia','NavigatorWrapper','VideoWrapper', 'ConnectionWrapper'], function(chai, UserMedia, NavigatorWrapper, VideoWrapper, ConnectionWrapper) {
+define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper', 'ConnectionWrapper'], function(chai, UserMedia, NavigatorWrapper, VideoWrapper, ConnectionWrapper) {
 
         suite('UserMedia.hasGetUserMedia', function() {
             var sut,  instanceNavigator, instanceVideo;

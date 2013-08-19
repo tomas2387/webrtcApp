@@ -1,5 +1,5 @@
 
-define(['.', 'ServerConnection'], function(chai, ServerConnection) {
+define(['chai', 'ServerConnection'], function(chai, ServerConnection) {
     suite('ConnectionWrapper.publishSDP', function() {
         "use strict";
 

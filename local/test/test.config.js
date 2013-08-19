@@ -1,15 +1,15 @@
 require.config({
-    baseUrl: "../local/src",
+    baseUrl: "../src",
     paths: {
-        chai: '../../test/lib/node_modules/chai/chai'
+        chai: '../../local/test/lib/node_modules/chai/chai'
     },
     urlArgs: "bust=" + (new Date()).getTime()
 });
 
 require([
-    '../../test/src/UserMediaTest',
-    '../../test/src/NavigatorWrapperTest',
-    '../../test/src/ConnectionWrapperTest',
+    '../../local/test/src/UserMediaTest',
+    '../../local/test/src/NavigatorWrapperTest',
+    '../../local/test/src/ConnectionWrapperTest',
 ], function() {
     if (typeof mochaPhantomJS !== "undefined") { mochaPhantomJS.run(); }
     else { mocha.run(); }

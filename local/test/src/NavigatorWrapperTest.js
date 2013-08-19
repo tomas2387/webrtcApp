@@ -1,5 +1,5 @@
 
-define(['.', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, UserMedia, NavigatorWrapper, VideoWrapper) {
+define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper'], function(chai, UserMedia, NavigatorWrapper, VideoWrapper) {
     suite('NavigatorWrapper.getCorrectUserMediaMethod', function() {
         "use strict";
 
