@@ -1,11 +1,11 @@
-define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper', 'ConnectionWrapper'], function(chai, UserMedia, NavigatorWrapper, VideoWrapper, ConnectionWrapper) {
+define(['.', 'UserMedia','NavigatorWrapper','VideoWrapper', 'ConnectionWrapper'], function(chai, UserMedia, NavigatorWrapper, VideoWrapper, ConnectionWrapper) {
 
         suite('UserMedia.hasGetUserMedia', function() {
             var sut,  instanceNavigator, instanceVideo;
             setup(function() {
                 instanceNavigator = new NavigatorWrapper();
                 instanceVideo = new VideoWrapper();
-                sut = new UserMedia(instanceVideo, instanceNavigator);
+                sut = new UserMedia(instanceVideo, instanceNavigator, {});
             });
 
             teardown(function() {
@@ -49,7 +49,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper', 'ConnectionWrappe
             setup(function() {
                 instanceNavigator = new NavigatorWrapper();
                 instanceVideo = new VideoWrapper();
-                sut = new UserMedia(instanceVideo, instanceNavigator);
+                sut = new UserMedia(instanceVideo, instanceNavigator, {});
             });
 
             teardown(function() {
@@ -73,7 +73,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper', 'ConnectionWrappe
             setup(function() {
                 instanceNavigator = new NavigatorWrapper();
                 instanceVideo = new VideoWrapper();
-                sut = new UserMedia(instanceVideo, instanceNavigator);
+                sut = new UserMedia(instanceVideo, instanceNavigator, {});
             });
 
             teardown(function() {
@@ -96,7 +96,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper', 'ConnectionWrappe
             setup(function() {
                 instanceNavigator = new NavigatorWrapper();
                 instanceVideo = new VideoWrapper();
-                instancePeerConnection = new ConnectionWrapper();
+                instancePeerConnection = new ConnectionWrapper({});
                 sut = new UserMedia(instanceVideo, instanceNavigator, instancePeerConnection);
             });
 
