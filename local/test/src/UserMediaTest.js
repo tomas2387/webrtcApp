@@ -21,6 +21,9 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper', 'ConnectionWrappe
             });
 
             test('test_hasGetUserMedia_whenNavigatorThrowsException_returnFalse', function() {
+                var getMediaBackup = window.navigator.getMedia;
+                window.navigator.getMedia = 1;
+
                 var stubNavigator = sinon.stub(instanceNavigator, 'getUserMedia');
                 stubNavigator.throws(new Error());
 
@@ -28,6 +31,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper', 'ConnectionWrappe
                 chai.assert.equal(false, actual);
 
                 stubNavigator.restore();
+                window.navigator.getMedia = getMediaBackup;
             });
 
             test('test_hasGetUserMedia_whenNavigatorReturnsTrue_returnTrue', function() {

@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 
         shell: {
             'mocha-phantomjs': {
-                command: 'mocha-phantomjs http://localhost/webrtcApp/test/testRunner.html',
+                command: 'mocha-phantomjs http://localhost/webrtcapp/local/test/testRunner.html',
                 options: {
                     stdout: true,
                     stderr: true
