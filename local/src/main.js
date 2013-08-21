@@ -1,4 +1,4 @@
-require(["UserMedia", "VideoWrapper"], function(UserMedia, VideoWrapper) {
+define(["UserMedia", "VideoWrapper"], function(UserMedia, VideoWrapper) {
     "use strict";
 
     var startButton = document.getElementById("startButton");

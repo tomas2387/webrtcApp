@@ -5,6 +5,9 @@
     <script>
         require.config({
             baseUrl: "local/src",
+            paths: {
+                socketio: '../../node_modules/socket.io/node_modules/socket.io-client/dist/socket.io'
+            },
             urlArgs: "bust=" + (new Date()).getTime()
         });
     </script>
