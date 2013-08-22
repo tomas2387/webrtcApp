@@ -13,6 +13,13 @@ module.exports = function(grunt) {
                     stdout: true,
                     stderr: true
                 }
+            },
+            server: {
+                command: 'node server/src/server.js',
+                options: {
+                    stdout: true,
+                    stderr: true
+                }
             }
         },
         watch: {

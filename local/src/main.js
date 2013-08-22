@@ -34,7 +34,7 @@ define(["UserMedia", "VideoWrapper"], function(UserMedia, VideoWrapper) {
     sendStreamButton.onclick = sendStream;
 
     function sendStream() {
-        //TODO
+        userRemoteMedia.publish();
     }
 
     var stopStreamButton = document.getElementById("hangupButton");

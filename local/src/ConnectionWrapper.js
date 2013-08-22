@@ -3,11 +3,15 @@ window.define(['ServerConnection'], function(ServerConnection) {
 
     var ConnectionWrapper = function(peerConnection, serverConnection) {
         if(typeof peerConnection === "undefined") {
-            var possiblePeerConnection = window.webkitRTCPeerConnection || window.mozRTCPeerConnection || window.RTCPeerConnection;
-            if(!possiblePeerConnection) {
+            if(window.webkitRTCPeerConnection) {
+                this.peerConnection = new window.webkitRTCPeerConnection({ "iceServers": [{ "url": "stun:stun.l.google.com:19302" }] });
+            }
+            else if(window.mozRTCPeerConnection) {
+                this.peerConnection = new window.mozRTCPeerConnection({ "iceServers": [{ "url": "stun:stun.services.mozilla.com" }] });
+            }
+            else {
                 throw new Error("Peer Connection is not supported in this browser!");
             }
-            this.peerConnection = new possiblePeerConnection();
         }
         else {
             this.peerConnection = peerConnection;
@@ -22,6 +26,7 @@ window.define(['ServerConnection'], function(ServerConnection) {
     };
 
     ConnectionWrapper.prototype.SDPReceived = function(sessionDescription) {
+        console.log('SDP: ', sessionDescription);
         this.peerConnection.setLocalDescription(sessionDescription);
         this.serverConnection.publishMySDP(sessionDescription.sdp, sessionDescription.type);
     };
