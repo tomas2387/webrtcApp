@@ -13,22 +13,19 @@ window.define(['socketio'], function(io) {
 
     ServerConnection.prototype.connect = function() {
         if(this.socket === null) {
-            this.socket = io.connect(this.urlServer, "{ name: 'tomas' }");
-
-            console.log(this.socket.socket);
-            console.log(this.socket.socket.connected);
+            this.socket = io.connect(this.urlServer);
             if(this.socket.socket.connected === false) {
-                console.log("is false");
                 throw new Error("Server is down or has not started yet!");
             }
             else {
-                console.log("is not");
+
             }
         }
     };
 
     ServerConnection.prototype.publishMySDP = function(SDP, type) {
         this.connect();
+        this.socket.emit('publishSDP', { sdp: SDP, type: type });
 
     };
 

@@ -26,7 +26,6 @@ window.define(['ServerConnection'], function(ServerConnection) {
     };
 
     ConnectionWrapper.prototype.SDPReceived = function(sessionDescription) {
-        console.log('SDP: ', sessionDescription);
         this.peerConnection.setLocalDescription(sessionDescription);
         this.serverConnection.publishMySDP(sessionDescription.sdp, sessionDescription.type);
     };

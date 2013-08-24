@@ -1,30 +1,28 @@
 
 define(['chai', 'ServerConnection'], function(chai, ServerConnection) {
-    suite('ConnectionWrapper.publishSDP', function() {
+    suite('ServerConnection.publishMySDP', function() {
         "use strict";
 
         setup(function() {
-            this.sut = new ServerConnection();
+            this.fakeSocket = {
+                socket: {
+                    connected: true
+                },
+                emit: function() {}
+            };
+            this.socketMock = sinon.mock(this.fakeSocket);
+            this.sut = new ServerConnection(this.fakeSocket);
         });
 
         teardown(function() {
-            this.mockPeerConnection.restore();
+            this.socketMock.restore();
+            this.socketMock = null;
         });
 
-        test('test_publishSDP_whenCalled_shouldCallCreateOffer', function() {
-            var expectation = this.mockPeerConnection.expects('createOffer').once();
-            this.sut.publishSDP();
+        test('test_publishMySDP_whenCalled_shouldCallServerWithSocket', function() {
+            var expectation = this.socketMock.expects('emit').once();
+            this.sut.publishMySDP(null, null);
             expectation.verify();
-        });
-
-        test('test_SDPReceived_whenCalled_shouldCallSetLocalDescriptionWithSDP', function() {
-            var expectation = this.mockPeerConnection.expects('setLocalDescription').once().withArgs('hola');
-            var stub = sinon.stub(this.serverConnection, 'publishMySDP').returns(true);
-
-            this.sut.SDPReceived('hola');
-
-            expectation.verify();
-            stub.restore();
         });
     });
 });
