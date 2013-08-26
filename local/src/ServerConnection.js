@@ -14,12 +14,7 @@ window.define(['socketio'], function(io) {
     ServerConnection.prototype.connect = function() {
         if(this.socket === null) {
             this.socket = io.connect(this.urlServer);
-            if(this.socket.socket.connected === false) {
-                throw new Error("Server is down or has not started yet!");
-            }
-            else {
-
-            }
+            console.log("Connected: ", this.socket);
         }
     };
 

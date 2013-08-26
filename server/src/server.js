@@ -1,9 +1,13 @@
 var io = require('socket.io').listen(8080);
 
 io.sockets.on('connection', function (socket) {
-    console.log(socket.store);
-    io.sockets.emit('user-connected', {  });
+    io.sockets.emit('user-connected', { id: socket.id });
 
-    socket.on('message', function () { });
-    socket.on('disconnect', function () { });
+    socket.on('publishSDP', function() {
+        console.log(arguments);
+    });
+
+    socket.on('disconnect', function (socket) {
+        console.log("Disconnected");
+    });
 });
