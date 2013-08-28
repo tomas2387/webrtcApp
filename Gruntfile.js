@@ -15,7 +15,7 @@ module.exports = function(grunt) {
                 }
             },
             server: {
-                command: 'node server/src/server.js',
+                command: 'sudo node server/src/server.js',
                 options: {
                     stdout: true,
                     stderr: true
