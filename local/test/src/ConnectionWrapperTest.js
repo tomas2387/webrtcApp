@@ -28,7 +28,7 @@ define(['chai', 'UserMedia','ConnectionWrapper', 'ServerConnection'], function(c
             var expectation = this.mockPeerConnection.expects('setLocalDescription').once().withArgs('hola');
             var stub = sinon.stub(this.serverConnection, 'publishMySDP').returns(true);
 
-            this.sut.SDPReceived('hola');
+            this.sut.MySDPReceived('hola');
 
             expectation.verify();
             stub.restore();

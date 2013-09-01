@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>WebRTC app</title>
     <script data-main="scripts/src/main.js" src="node_modules/requirejs/require.js"></script>
@@ -19,14 +20,23 @@
 <div id="video-panel">
     <div id="buttons">
         <button id="startButton">Start video</button>
-        <button id="callButton">Send stream</button>
-        <button id="hangupButton">Stop stream</button>
+        <button id="disconnect">Disconnect from the server</button>
     </div>
     <div id="videos">
         <video id="localVideo" autoplay></video>
         <video id="remoteVideo" autoplay></video>
     </div>
 </div>
+
+<fieldset>
+    <legend>User list</legend>
+    <div id="userlist"></div>
+</fieldset>
+
+<fieldset>
+    <legend>Logger</legend>
+    <div id="log"></div>
+</fieldset>
 
 </body>
 </html>

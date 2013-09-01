@@ -2,3 +2,19 @@
 #localVideo {
     width: 20%;
 }
+
+#userlist div {
+    border-bottom: 1px solid black;
+    height: 30px;
+}
+
+#userlist div .truncate {
+    width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#userlist div .actions {
+    float:right;
+}

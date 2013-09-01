@@ -1,46 +1,49 @@
-define(["UserMedia", "VideoWrapper"], function(UserMedia, VideoWrapper) {
-    "use strict";
+define(["UserMedia", "VideoWrapper", "ConnectionWrapper", "ServerConnection", "Logger", "ListUsers"],
+    function(UserMedia, VideoWrapper, ConnectionWrapper, ServerConnection, Logger, UsersList) {
+        "use strict";
 
-    var startButton = document.getElementById("startButton");
-    startButton.onclick = startLocalVideo;
+        var localVideoWrapper = new VideoWrapper(document.getElementById('localVideo'));
+        var userLocalMedia = new UserMedia(localVideoWrapper);
 
-    var localVideoWrapper = new VideoWrapper(document.getElementById('localVideo'));
-    var userLocalMedia = new UserMedia(localVideoWrapper);
+        var remoteVideoWrapper = new VideoWrapper(document.getElementById('remoteVideo'));
+        var userRemoteMedia = new UserMedia(remoteVideoWrapper);
 
-    function startLocalVideo() {
-        startButton.innerHTML = "Stop";
-        startButton.onclick = stopLocalVideo;
+        var logger = new Logger(document.getElementById('log'));
+        var userList = new UsersList(document.getElementById('userlist'), logger);
 
-        if (userLocalMedia.hasGetUserMedia()) {
-            console.log('Good to go!');
-            userLocalMedia.localQueryCamera();
-        } else {
-            window.alert('getUserMedia() is not compatible in your browser');
-            stopLocalVideo();
-        }
-    }
+        var server = new ServerConnection();
+        var connection = new ConnectionWrapper(logger, server, userLocalMedia, userRemoteMedia);
 
-    function stopLocalVideo() {
-        startButton.innerHTML = "Start";
+        server.on('userList', userList.setUserList.bind(userList, connection.publishSDP, connection));
+        server.on('userConnected', userList.addUserToUserList.bind(userList, connection.publishSDP, connection));
+        server.on('userDisconnected', userList.removeUser.bind(userList));
+
+        logger.log("Initiating version 0.7.5");
+
+        var startButton = document.getElementById("startButton");
         startButton.onclick = startLocalVideo;
 
-        userLocalMedia.stopMedia();
-    }
+        function startLocalVideo() {
+            startButton.innerHTML = "Stop";
+            startButton.onclick = stopLocalVideo;
 
-    var remoteVideoWrapper = new VideoWrapper(document.getElementById('remoteVideo'));
-    var userRemoteMedia = new UserMedia(remoteVideoWrapper);
+            if (userLocalMedia.hasGetUserMedia()) {
+                logger.log('Asking the user if its ok to use the camera');
+                userLocalMedia.localQueryCamera();
+            } else {
+                logger.log('getUserMedia is not compatible in your browser');
+                stopLocalVideo();
+            }
+        }
 
-    var sendStreamButton = document.getElementById("callButton");
-    sendStreamButton.onclick = sendStream;
+        function stopLocalVideo() {
+            logger.log('Video stopped');
+            startButton.innerHTML = "Start";
+            startButton.onclick = startLocalVideo;
+            userLocalMedia.stopMedia();
+        }
 
-    function sendStream() {
-        userRemoteMedia.publish();
-    }
-
-    var stopStreamButton = document.getElementById("hangupButton");
-    stopStreamButton.onclick = stopStream;
-
-    function stopStream() {
-        //TODO
-    }
-});
+        document.getElementById('disconnect').onclick = function() {
+            server.disconnect();
+        };
+    });

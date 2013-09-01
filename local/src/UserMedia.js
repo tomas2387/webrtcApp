@@ -1,10 +1,9 @@
-window.define(['NavigatorWrapper', 'VideoWrapper', 'ConnectionWrapper'], function(NavigatorWrapper, VideoWrapper, ConnectionWrapper) {
+window.define(['NavigatorWrapper', 'VideoWrapper'], function(NavigatorWrapper, VideoWrapper) {
     "use strict";
 
-    var UserMedia = function(video, navigator, connection) {
+    var UserMedia = function(video, navigator) {
         this.navigator = navigator || new NavigatorWrapper();
         this.video = video || new VideoWrapper(document.getElementById('localVideo'));
-        this.connection = connection || new ConnectionWrapper();
     };
 
     UserMedia.prototype.hasGetUserMedia = function() {
@@ -12,7 +11,6 @@ window.define(['NavigatorWrapper', 'VideoWrapper', 'ConnectionWrapper'], functio
     };
 
     UserMedia.prototype.localQueryCamera = function() {
-        // Not showing vendor prefixes.
         var options = {video: true, audio: true};
         this.navigator.getUserMedia(options, this.userAccepted.bind(this), this.userDenied.bind(this));
     };
@@ -25,12 +23,12 @@ window.define(['NavigatorWrapper', 'VideoWrapper', 'ConnectionWrapper'], functio
         this.video.stopPlaying();
     };
 
-    UserMedia.prototype.userDenied = function(e) {
-        console.log('Reeeejected!', e);
+    UserMedia.prototype.getStream = function() {
+        return this.video.getStream();
     };
 
-    UserMedia.prototype.publish = function() {
-        this.connection.publishSDP();
+    UserMedia.prototype.userDenied = function(e) {
+        console.log('Reeeejected!', e);
     };
 
     return UserMedia;
