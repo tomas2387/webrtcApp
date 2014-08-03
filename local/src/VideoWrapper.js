@@ -8,11 +8,7 @@ window.define(["URLWrapper"], function(URLWrapper) {
     };
 
     VideoWrapper.prototype.startPlaying = function(stream) {
-        if (typeof this.videoElement.srcObject !== 'undefined') {
-            this.videoElement.srcObject = stream;
-        } else if (typeof this.videoElement.mozSrcObject !== 'undefined') {
-            this.videoElement.mozSrcObject = stream;
-        } else if (typeof this.videoElement.src !== 'undefined') {
+        if (typeof this.videoElement.src !== 'undefined') {
             this.videoElement.src = this.URL.createObjectURL(stream);
         } else {
             throw new Error('Error attaching stream to this.videoElement.');
