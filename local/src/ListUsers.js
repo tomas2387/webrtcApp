@@ -17,7 +17,7 @@ window.define(function() {
     };
 
     ListUsers.prototype.addUserToUserList = function(startCall, self, data) {
-        this.logger.log("User connected " + data.id);
+        this.logger.log("User connected. Id: " + data.id);
         var elementDiv = document.createElement("div");
         elementDiv.id = data.id;
         var buttonCall = document.createElement("button");

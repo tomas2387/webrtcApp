@@ -28,7 +28,7 @@ define(["UserMedia", "VideoWrapper", "ConnectionWrapper", "ServerConnection", "L
             startButton.onclick = stopLocalVideo;
 
             if (userLocalMedia.hasGetUserMedia()) {
-                logger.log('Asking the user if its ok to use the camera');
+                logger.log('Initiating local streaming...');
                 userLocalMedia.localQueryCamera();
             } else {
                 logger.log('getUserMedia is not compatible in your browser');

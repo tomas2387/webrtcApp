@@ -2,11 +2,13 @@ var server  = require('http').createServer(),
     sio      = require('socket.io'),
     port    = 8081,
     User    = require('./User'),
-    UsersList    = require('./UsersList');
+    UsersList    = require('./UsersList'),
+    LoggerShell  = require('./LoggerShell');
 
 server.listen(port);
 var io = sio.listen(server, { log:false });
 var usersList = new UsersList();
+var logger = new LoggerShell();
 
 
 io.sockets.on('connection', function(socket) {
@@ -14,45 +16,45 @@ io.sockets.on('connection', function(socket) {
     usersList.addUser(socket.id, user);
 
     socket.on('username', function(data) {
-        console.log("", "Client Connected: ", data);
+        logger.log("Client Connected:", data);
         user.setUserName(data.username);
         socket.broadcast.emit('userConnected', {id: socket.id, name: data.username});
         socket.emit('userList', {list: usersList.getAllUsers()});
     });
 
     socket.on('publishSDP', function(data) {
-        console.log("", "*** publishSDP: ", "FROM: "+socket.id, " TO: "+data.socketid);
+        logger.log("*** publishSDP: ", "FROM: "+socket.id, " TO: "+data.socketid);
         user.setSDP(data.data.SDP);
         var otherUser = usersList.getUser(data.socketid);
         otherUser.emitData({id: socket.id, data: data.data}, 'SDPReceived');
     });
 
     socket.on('answerSDP', function(data) {
-        console.log("", "*** answerSDP: ", "FROM: "+socket.id, " TO: "+data.socketid);
+        logger.log("*** answerSDP: ", "FROM: "+socket.id, " TO: "+data.socketid);
         var otherUser = usersList.getUser(data.socketid);
         otherUser.setSDP(data.data.SDP);
         otherUser.emitData({id: socket.id, data: data.data}, 'AnswerSDPReceived');
     });
 
     socket.on('publishIce', function(data) {
-        console.log("", "*** publishIce: ", "FROM: "+socket.id, " TO: "+data.socketid);
+        logger.log("*** publishIce: ", "FROM: "+socket.id, " TO: "+data.socketid);
         user.setICE(data);
         var otherUser = usersList.getUser(data.socketid);
         otherUser.emitData({id: socket.id, data: data.data}, 'ICEReceived');
     });
 
     socket.on('sendMessage', function(data) {
-        console.log("", "*** " + socket.id + " sending message to "+ data.id + " with the event "+data.event, data.data);
+        logger.log("*** " + socket.id + " sending message to "+ data.id + " with the event "+data.event, data.data);
         var otherUser = usersList.getUser(data.socketid);
         otherUser.emitData({id: socket.id, data: data.data}, data.event);
     });
 
     socket.on('disconnect', function() {
-        console.log("Event: Disconnect");
+        logger.log("Event: Disconnect", socket.id);
         usersList.removeUser(socket.id);
         socket.broadcast.emit('userDisconnected', {id: socket.id});
     });
 });
 
-console.log("Version 0.5", 'Listening on http://0.0.0.0:' + port , "");
+console.log("Version 0.5.1", 'Listening on http://0.0.0.0:' + port , "");
 console.log("");

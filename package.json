@@ -1,21 +1,36 @@
 {
-    "name": "webrtcapp",
-    "version": "0.0.1",
-    "license": "MIT",
-    "dependencies": {
-        "requirejs": ">=2.1.4",
-        "socket.io": ">=0.9.16"
-    },
-    "devDependencies": {
-        "sinon": ">=1.6.0",
-        "chai": ">=1.6.0",
-        "mocha": ">=1.9.0",
-        "phantomjs": ">=1.9.1-0",
-        "mocha-phantomjs": ">=3.1.0",
-
-        "grunt": ">=0.4.1",
-        "grunt-cli": ">=0.1.7",
-        "grunt-contrib-watch": ">=0.4.4",
-        "grunt-shell": ">=0.3.1"
-    }
+  "name": "webrtcapp",
+  "version": "0.0.1",
+  "license": "BSD",
+  "dependencies": {
+    "requirejs": ">=2.1.4",
+    "socket.io": ">=0.9.16"
+  },
+  "devDependencies": {
+    "sinon": ">=1.6.0",
+    "chai": ">=1.6.0",
+    "mocha": ">=1.9.0",
+    "phantomjs": ">=1.9.1-0",
+    "mocha-phantomjs": ">=3.1.0",
+    "grunt": ">=0.4.1",
+    "grunt-cli": ">=0.1.7",
+    "grunt-contrib-watch": ">=0.4.4",
+    "grunt-shell": ">=0.3.1"
+  },
+  "description": "webrtcApp =========",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tomas2387/webrtcApp.git"
+  },
+  "keywords": [
+    "rtc"
+  ],
+  "author": "Tomás Prado",
+  "bugs": {
+    "url": "https://github.com/tomas2387/webrtcApp/issues"
+  }
 }
