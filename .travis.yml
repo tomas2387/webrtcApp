@@ -16,7 +16,7 @@ install:
 
 before_script:
   - ./node_modules/.bin/http-server . &  # start a Web server
-  - sleep 3 # give Web server some time to bind to sockets, etc
+  - sleep 5 # give Web server some time to bind to sockets, etc
 
 
 branches:

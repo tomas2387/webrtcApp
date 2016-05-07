@@ -13,6 +13,10 @@ require([
     '/local/test/src/ConnectionWrapperTest.js',
     '/local/test/src/ServerConnectionTest.js'
 ], function() {
-    if (typeof mochaPhantomJS !== "undefined") { mochaPhantomJS.run(); }
-    else { mocha.run(); }
+    if (typeof mochaPhantomJS !== "undefined") {
+         mochaPhantomJS.run();
+    }
+    else {
+        mocha.run();
+    }
 });
