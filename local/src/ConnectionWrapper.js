@@ -1,7 +1,7 @@
 window.define(['ServerConnection', 'UserMedia'], function(ServerConnection, UserMedia) {
     "use strict";
 
-    var ConnectionWrapper = function(logger, serverConnection, localMedia, remoteMedia) {
+    var ConnectionWrapper = function(logger, serverConnection, localMedia, remoteMedia, peerConnection) {
         this.logger = logger;
         this.serverConnection = serverConnection || new ServerConnection();
         this.localMedia = localMedia || new UserMedia();
@@ -14,17 +14,21 @@ window.define(['ServerConnection', 'UserMedia'], function(ServerConnection, User
         this.otherPeer = null;
 
         this.remoteDescriptionAdded = false;
+
+        this.peerConnection = peerConnection || null;
     };
 
     ConnectionWrapper.prototype.getPeerConnection = function () {
-        if (window.webkitRTCPeerConnection) {
-            this.peerConnection = new window.webkitRTCPeerConnection({ "iceServers": [{ "url": "stun:stun.l.google.com:19302" }] });
-        }
-        else if (window.mozRTCPeerConnection) {
-            this.peerConnection = new window.mozRTCPeerConnection({ "iceServers": [{ "url": "stun:stun.services.mozilla.com" }] });
-        }
-        else {
-            throw new Error("Peer Connection is not supported in this browser!");
+        if(!this.peerConnection) {
+            if (window.webkitRTCPeerConnection) {
+                this.peerConnection = new window.webkitRTCPeerConnection({"iceServers": [{"url": "stun:stun.l.google.com:19302"}]});
+            }
+            else if (window.mozRTCPeerConnection) {
+                this.peerConnection = new window.mozRTCPeerConnection({"iceServers": [{"url": "stun:stun.services.mozilla.com"}]});
+            }
+            else {
+                throw new Error("Peer Connection is not supported in this browser!");
+            }
         }
 
         this.peerConnection.onicecandidate = this.onIceCandidate.bind(this);

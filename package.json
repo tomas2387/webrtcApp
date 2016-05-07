@@ -1,8 +1,9 @@
 {
   "name": "webrtcapp",
   "version": "0.0.1",
-  "license": "BSD",
+  "license": "WTFPL",
   "dependencies": {
+    "http-server": "^0.9.0",
     "requirejs": ">=2.1.4",
     "socket.io": ">=0.9.16"
   },
@@ -11,16 +12,15 @@
     "chai": ">=1.6.0",
     "mocha": ">=1.9.0",
     "phantomjs": ">=1.9.1-0",
-    "mocha-phantomjs": ">=3.1.0",
-    "grunt": ">=0.4.1",
-    "grunt-cli": ">=0.1.7",
-    "grunt-contrib-watch": ">=0.4.4",
-    "grunt-shell": ">=0.3.1"
+    "mocha-phantomjs": ">=3.1.0"
   },
   "description": "webrtcApp =========",
-  "main": "Gruntfile.js",
+  "main": "server/src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "configure": "npm install",
+    "server": "node server/src/server.js",
+    "webserver": "./node_modules/.bin/http-server .",
+    "test": "./node_modules/.bin/mocha-phantomjs http://127.0.0.1:8080/local/test/testRunner.html"
   },
   "repository": {
     "type": "git",

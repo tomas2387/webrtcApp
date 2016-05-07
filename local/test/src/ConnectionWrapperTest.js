@@ -6,12 +6,17 @@ define(['chai', 'UserMedia','ConnectionWrapper', 'ServerConnection'], function(c
         setup(function() {
             var fakePeerConnection = {
                 createOffer: function(callback, failureCallback, options) {},
-                setLocalDescription: function(SDP) {}
+                setLocalDescription: function(SDP) {},
+                addStream: function() {}
             };
             this.mockPeerConnection = sinon.mock(fakePeerConnection);
 
-            this.serverConnection = new ServerConnection();
-            this.sut = new ConnectionWrapper(fakePeerConnection, this.serverConnection);
+            var fakeLogger = {
+                log: function() {}
+            };
+
+            this.serverConnection = new ServerConnection({emit:function(){},on:function(){}});
+            this.sut = new ConnectionWrapper(fakeLogger, this.serverConnection, null, null, fakePeerConnection);
         });
 
         teardown(function() {
