@@ -2,7 +2,7 @@ window.define(['socketio'], function(io) {
     "use strict";
 
     var ServerConnection = function(socket) {
-        var urlServer = location.origin + ':8081';
+        var urlServer = location.origin;
 
         this.socket = socket || io.connect(urlServer);
         this.emit('username', {username: navigator.userAgent});

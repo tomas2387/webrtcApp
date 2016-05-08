@@ -1,11 +1,12 @@
 var server  = require('http').createServer(),
     sio      = require('socket.io'),
-    port    = 8081,
+    port    = process.env.PORT || 8080,
+    host    = process.env.YOUR_HOST || '0.0.0.0',
     User    = require('./User'),
     UsersList    = require('./UsersList'),
     LoggerShell  = require('./LoggerShell');
 
-server.listen(port);
+server.listen(port, host);
 var io = sio.listen(server, { log:false });
 var usersList = new UsersList();
 var logger = new LoggerShell();
@@ -56,5 +57,4 @@ io.sockets.on('connection', function(socket) {
     });
 });
 
-console.log("Version 0.5.1", 'Listening on http://0.0.0.0:' + port , "");
-console.log("");
+console.log("Version 0.6", 'Listening on http://'+host+':' + port , "\n");
