@@ -1,9 +1,10 @@
 window.define(['NavigatorWrapper', 'VideoWrapper'], function(NavigatorWrapper, VideoWrapper) {
     "use strict";
 
-    var UserMedia = function(video, navigator) {
+    var UserMedia = function(options, video, navigator) {
         this.navigator = navigator || new NavigatorWrapper();
         this.video = video || new VideoWrapper(document.getElementById('localVideo'));
+        this.options = options || {video:true, audio: true};
     };
 
     UserMedia.prototype.hasGetUserMedia = function() {
@@ -11,8 +12,7 @@ window.define(['NavigatorWrapper', 'VideoWrapper'], function(NavigatorWrapper, V
     };
 
     UserMedia.prototype.localQueryCamera = function() {
-        var options = {video: true, audio: true};
-        this.navigator.getUserMedia(options, this.userAccepted.bind(this), this.userDenied.bind(this));
+        this.navigator.getUserMedia(this.options, this.userAccepted.bind(this), this.userDenied.bind(this));
     };
 
     UserMedia.prototype.userAccepted = function(localMediaStream) {

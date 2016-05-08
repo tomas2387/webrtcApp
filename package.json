@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "license": "WTFPL",
   "dependencies": {
+    "express": "^4.13.4",
     "requirejs": "*",
     "socket.io": "*"
   },

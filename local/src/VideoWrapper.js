@@ -22,7 +22,14 @@ window.define(["URLWrapper"], function(URLWrapper) {
     };
 
     VideoWrapper.prototype.stopPlaying = function() {
-        this.stream.stop();
+        var v = this.stream.getVideoTracks();
+        v.forEach(function(mediastreamTrack) {
+            mediastreamTrack.stop();
+        });
+        var a = this.stream.getAudioTracks();
+        a.forEach(function(mediastreamTrack) {
+            mediastreamTrack.stop();
+        });
     };
 
     VideoWrapper.prototype.onLoadedMetadata = function(e) {

@@ -3,10 +3,10 @@ define(["UserMedia", "VideoWrapper", "ConnectionWrapper", "ServerConnection", "L
         "use strict";
 
         var localVideoWrapper = new VideoWrapper(document.getElementById('localVideo'));
-        var userLocalMedia = new UserMedia(localVideoWrapper);
+        var userLocalMedia = new UserMedia({video:true,audio:true}, localVideoWrapper);
 
         var remoteVideoWrapper = new VideoWrapper(document.getElementById('remoteVideo'));
-        var userRemoteMedia = new UserMedia(remoteVideoWrapper);
+        var userRemoteMedia = new UserMedia({video:true,audio:true}, remoteVideoWrapper);
 
         var logger = new Logger(document.getElementById('log'));
         var userList = new UsersList(document.getElementById('userlist'), logger);
@@ -24,7 +24,7 @@ define(["UserMedia", "VideoWrapper", "ConnectionWrapper", "ServerConnection", "L
         startButton.onclick = startLocalVideo;
 
         function startLocalVideo() {
-            startButton.innerHTML = "Stop";
+            startButton.innerHTML = "Parar video";
             startButton.onclick = stopLocalVideo;
 
             if (userLocalMedia.hasGetUserMedia()) {
@@ -42,8 +42,8 @@ define(["UserMedia", "VideoWrapper", "ConnectionWrapper", "ServerConnection", "L
             startButton.onclick = startLocalVideo;
             userLocalMedia.stopMedia();
         }
-
-        document.getElementById('disconnect').onclick = function() {
-            server.disconnect();
-        };
+        //
+        //document.getElementById('disconnect').onclick = function() {
+        //    server.disconnect();
+        //};
     });

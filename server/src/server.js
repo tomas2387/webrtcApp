@@ -1,13 +1,23 @@
-var server  = require('http').createServer(),
+var https  = require('http'),
     sio      = require('socket.io'),
     port    = process.env.PORT || 8080,
     host    = process.env.YOUR_HOST || '0.0.0.0',
     User    = require('./User'),
     UsersList    = require('./UsersList'),
-    LoggerShell  = require('./LoggerShell');
+    LoggerShell  = require('./LoggerShell'),
+    express = require("express"),
+    fs = require('fs'),
+    path = require('path'),
+    app = express();
 
-server.listen(port, host);
-var io = sio.listen(server, { log:false });
+var baseFolder = path.join(__dirname, '..', '..');
+
+app.use(express.static(baseFolder));
+
+var webServer = https.createServer(app);
+webServer.listen(port, host);
+
+var io = sio.listen(webServer, { log: true });
 var usersList = new UsersList();
 var logger = new LoggerShell();
 

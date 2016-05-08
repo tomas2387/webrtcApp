@@ -1,8 +1,4 @@
 
-#localVideo {
-    width: 20%;
-}
-
 #userlist div {
     border-bottom: 1px solid black;
     height: 30px;
@@ -17,4 +13,14 @@
 
 #userlist div .actions {
     float:right;
+}
+
+video {
+    border: 1px solid black;
+    width: 100%;
+}
+
+.videoLabels {
+    position: absolute;
+    top: 0;
 }
