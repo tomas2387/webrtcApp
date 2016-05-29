@@ -5,7 +5,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper', 'ConnectionWrappe
             setup(function() {
                 instanceNavigator = new NavigatorWrapper();
                 instanceVideo = new VideoWrapper();
-                sut = new UserMedia(instanceVideo, instanceNavigator, {});
+                sut = new UserMedia(null, instanceVideo, instanceNavigator, {});
             });
 
             teardown(function() {
@@ -53,7 +53,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper', 'ConnectionWrappe
             setup(function() {
                 instanceNavigator = new NavigatorWrapper();
                 instanceVideo = new VideoWrapper();
-                sut = new UserMedia(instanceVideo, instanceNavigator, {});
+                sut = new UserMedia(null, instanceVideo, instanceNavigator, {});
             });
 
             teardown(function() {
@@ -77,7 +77,7 @@ define(['chai', 'UserMedia','NavigatorWrapper','VideoWrapper', 'ConnectionWrappe
             setup(function() {
                 instanceNavigator = new NavigatorWrapper();
                 instanceVideo = new VideoWrapper();
-                sut = new UserMedia(instanceVideo, instanceNavigator, {});
+                sut = new UserMedia(null, instanceVideo, instanceNavigator, {});
             });
 
             teardown(function() {
